@@ -30,19 +30,32 @@ namespace Pokedex
     }
     public partial class Form1 : Form
     {
+        private int current;
+        private int last;
+
         public Form1()
         {
             InitializeComponent();
+            current = 0;
+            last = 0;
+            currentLabel.Text = current.ToString();
+            
         }
+
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
             if (File.Exists("Pokemon.txt"))
             {
                 StreamReader inFile = new StreamReader("Pokemon.txt");
-                string S = inFile.ReadToEnd();
-                Pokemon p = ReadPokemon(S);
-                ShowPokemon(p);
+                while (!inFile.EndOfStream)
+                {
+                    string S = inFile.ReadLine();
+                    Pokemon p = ReadPokemon(S);
+                    ShowPokemon(p);
+                    last++;
+                }
                 inFile.Close();
             }
         }
@@ -106,6 +119,37 @@ namespace Pokedex
             legendaryCbox.Checked = p.Legendary;
             shinyCbox.Checked = p.Shiny;
             genUpDown.Value = p.Gen;
+        }
+
+        private void firstButton_Click(object sender, EventArgs e)
+        {
+            current = 1;
+            currentLabel.Text = current.ToString();
+        }
+
+        private void lastButton_Click(object sender, EventArgs e)
+        {
+            current = last;
+            currentLabel.Text = current.ToString();
+        }
+
+        private void prevButton_Click(object sender, EventArgs e)
+        {
+            if (current > 1)
+            {
+                //this line makes you a cool programmer!
+                current--;
+                currentLabel.Text = current.ToString();
+            }
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            if (current < last)
+            {
+                current++;
+                currentLabel.Text = current.ToString();
+            }
         }
     }
 }

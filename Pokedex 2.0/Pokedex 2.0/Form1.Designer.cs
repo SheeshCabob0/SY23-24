@@ -48,6 +48,11 @@
             this.expTbox = new System.Windows.Forms.TextBox();
             this.attackComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.prevButton = new System.Windows.Forms.Button();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.firstButton = new System.Windows.Forms.Button();
+            this.lastButton = new System.Windows.Forms.Button();
+            this.currentLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagePbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.genUpDown)).BeginInit();
@@ -104,7 +109,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(823, 503);
+            this.label4.Location = new System.Drawing.Point(823, 500);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 16);
             this.label4.TabIndex = 7;
@@ -113,7 +118,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(663, 503);
+            this.label5.Location = new System.Drawing.Point(664, 500);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(26, 16);
             this.label5.TabIndex = 6;
@@ -204,7 +209,7 @@
             // 
             // expTbox
             // 
-            this.expTbox.Location = new System.Drawing.Point(862, 500);
+            this.expTbox.Location = new System.Drawing.Point(862, 497);
             this.expTbox.Name = "expTbox";
             this.expTbox.Size = new System.Drawing.Size(59, 22);
             this.expTbox.TabIndex = 22;
@@ -231,11 +236,69 @@
             this.label1.TabIndex = 24;
             this.label1.Text = "AttackType";
             // 
+            // prevButton
+            // 
+            this.prevButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.prevButton.Location = new System.Drawing.Point(440, 497);
+            this.prevButton.Name = "prevButton";
+            this.prevButton.Size = new System.Drawing.Size(38, 23);
+            this.prevButton.TabIndex = 25;
+            this.prevButton.Text = "<";
+            this.prevButton.UseVisualStyleBackColor = false;
+            this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
+            // 
+            // nextButton
+            // 
+            this.nextButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.nextButton.Location = new System.Drawing.Point(505, 497);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(38, 23);
+            this.nextButton.TabIndex = 26;
+            this.nextButton.Text = ">";
+            this.nextButton.UseVisualStyleBackColor = false;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // firstButton
+            // 
+            this.firstButton.BackColor = System.Drawing.Color.IndianRed;
+            this.firstButton.Location = new System.Drawing.Point(293, 443);
+            this.firstButton.Name = "firstButton";
+            this.firstButton.Size = new System.Drawing.Size(70, 23);
+            this.firstButton.TabIndex = 27;
+            this.firstButton.Text = "First";
+            this.firstButton.UseVisualStyleBackColor = false;
+            this.firstButton.Click += new System.EventHandler(this.firstButton_Click);
+            // 
+            // lastButton
+            // 
+            this.lastButton.BackColor = System.Drawing.Color.SkyBlue;
+            this.lastButton.Location = new System.Drawing.Point(369, 443);
+            this.lastButton.Name = "lastButton";
+            this.lastButton.Size = new System.Drawing.Size(72, 23);
+            this.lastButton.TabIndex = 28;
+            this.lastButton.Text = "Last";
+            this.lastButton.UseVisualStyleBackColor = false;
+            this.lastButton.Click += new System.EventHandler(this.lastButton_Click);
+            // 
+            // currentLabel
+            // 
+            this.currentLabel.AutoSize = true;
+            this.currentLabel.Location = new System.Drawing.Point(290, 221);
+            this.currentLabel.Name = "currentLabel";
+            this.currentLabel.Size = new System.Drawing.Size(44, 16);
+            this.currentLabel.TabIndex = 29;
+            this.currentLabel.Text = "label2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1178, 648);
+            this.Controls.Add(this.currentLabel);
+            this.Controls.Add(this.lastButton);
+            this.Controls.Add(this.firstButton);
+            this.Controls.Add(this.nextButton);
+            this.Controls.Add(this.prevButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.attackComboBox);
             this.Controls.Add(this.expTbox);
@@ -289,6 +352,11 @@
         private System.Windows.Forms.TextBox expTbox;
         private System.Windows.Forms.ComboBox attackComboBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button prevButton;
+        private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Button firstButton;
+        private System.Windows.Forms.Button lastButton;
+        private System.Windows.Forms.Label currentLabel;
     }
 }
 
