@@ -35,7 +35,6 @@
             this.imagePbox = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.debugTbox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.nameTbox = new System.Windows.Forms.TextBox();
             this.TypeTbox = new System.Windows.Forms.TextBox();
@@ -123,14 +122,6 @@
             this.label5.Size = new System.Drawing.Size(26, 16);
             this.label5.TabIndex = 6;
             this.label5.Text = "HP";
-            // 
-            // debugTbox
-            // 
-            this.debugTbox.Location = new System.Drawing.Point(1004, 132);
-            this.debugTbox.Multiline = true;
-            this.debugTbox.Name = "debugTbox";
-            this.debugTbox.Size = new System.Drawing.Size(138, 424);
-            this.debugTbox.TabIndex = 8;
             // 
             // label3
             // 
@@ -311,7 +302,6 @@
             this.Controls.Add(this.TypeTbox);
             this.Controls.Add(this.nameTbox);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.debugTbox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.imagePbox);
@@ -339,7 +329,6 @@
         private System.Windows.Forms.PictureBox imagePbox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox debugTbox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox nameTbox;
         private System.Windows.Forms.TextBox TypeTbox;
