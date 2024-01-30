@@ -86,7 +86,7 @@ namespace Pokedex
             return p;
         }
 
-        private void SaveBtn_Click(object sender, EventArgs e)
+        private void Save()
         {
             string tmp = "";
             tmp += nameTbox.Text;
@@ -95,7 +95,7 @@ namespace Pokedex
             tmp += "|";
             tmp += levelTbox.Text;
             tmp += "|";
-            tmp +=  attackComboBox.Text;
+            tmp += attackComboBox.Text;
             tmp += "|";
             tmp += hpTbox.Text;
             tmp += "|";
@@ -108,9 +108,39 @@ namespace Pokedex
             tmp += genUpDown.Value;
             pokemons[current] = ReadPokemon(tmp);
 
-            //StreamWriter outFile = new StreamWriter("Pokemon.txt");
-            //outFile.Write(tmp);
-            //outFile.Close();
+            StreamWriter outFile = new StreamWriter("Pokemon.txt");
+            for (int i = 0; i < count; i++)
+            {
+                outFile.WriteLine(PokemonToString(pokemons[i]));
+            }
+            outFile.Close();
+        }
+
+        private string PokemonToString(Pokemon p)
+        {
+            string retVal = "";
+            retVal += p.Name.ToString();
+            retVal += "|";
+            retVal += p.Type.ToString();
+            retVal += "|";
+            retVal += p.Level.ToString();
+            retVal += "|";
+            retVal += p.attackType.ToString();
+            retVal += "|";
+            retVal += p.HP.ToString();
+            retVal += "|";
+            retVal += p.Exp.ToString();
+            retVal += "|";
+            retVal += p.Legendary.ToString();
+            retVal += "|";
+            retVal += p.Shiny.ToString();
+            retVal += "|";
+            retVal += p.Gen.ToString();
+            return retVal;
+        }
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            Save();
         }
         
         private void ShowPokemon(Pokemon p)
@@ -129,6 +159,7 @@ namespace Pokedex
         private void firstButton_Click(object sender, EventArgs e)
         {
             //set this to 0
+            Save();
             current = 0;
             currentLabel.Text = current.ToString();
             ShowPokemon(pokemons[current]);
@@ -137,6 +168,7 @@ namespace Pokedex
         private void lastButton_Click(object sender, EventArgs e)
         {
             //set this to count -1
+            Save();
             current = count - 1;
             currentLabel.Text = current.ToString();
             ShowPokemon(pokemons[current]);
@@ -147,6 +179,7 @@ namespace Pokedex
             //set this to 0
             if (current > 0)
             {
+                Save();
                 //this line makes you a cool programmer!
                 current--;
                 currentLabel.Text = current.ToString();
@@ -158,10 +191,34 @@ namespace Pokedex
         {
             if (current < count - 1)
             {
+                Save();
                 current++;
                 currentLabel.Text = current.ToString();
                 ShowPokemon(pokemons[current]);
             }
+        }
+        private void Clear()
+        {
+            nameTbox.Text = "";
+            TypeTbox.Text = "";
+            levelTbox.Text = "";
+            attackComboBox.Text = "";
+            hpTbox.Text = "";
+            expTbox.Text = "";
+            legendaryCbox.Checked = false;
+            shinyCbox.Checked = false;
+            genUpDown.Value = 0;
+        }
+        private void newButton_Click(object sender, EventArgs e)
+        {
+            current = count;
+            count ++;
+            Clear();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Save();
         }
     }
 }

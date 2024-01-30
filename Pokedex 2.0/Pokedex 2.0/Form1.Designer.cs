@@ -41,7 +41,6 @@
             this.levelTbox = new System.Windows.Forms.TextBox();
             this.shinyCbox = new System.Windows.Forms.CheckBox();
             this.legendaryCbox = new System.Windows.Forms.CheckBox();
-            this.SaveBtn = new System.Windows.Forms.Button();
             this.genUpDown = new System.Windows.Forms.NumericUpDown();
             this.hpTbox = new System.Windows.Forms.TextBox();
             this.expTbox = new System.Windows.Forms.TextBox();
@@ -52,6 +51,7 @@
             this.firstButton = new System.Windows.Forms.Button();
             this.lastButton = new System.Windows.Forms.Button();
             this.currentLabel = new System.Windows.Forms.Label();
+            this.newButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagePbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.genUpDown)).BeginInit();
@@ -173,17 +173,6 @@
             this.legendaryCbox.Text = "Legendary";
             this.legendaryCbox.UseVisualStyleBackColor = true;
             // 
-            // SaveBtn
-            // 
-            this.SaveBtn.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.SaveBtn.Location = new System.Drawing.Point(293, 497);
-            this.SaveBtn.Name = "SaveBtn";
-            this.SaveBtn.Size = new System.Drawing.Size(122, 59);
-            this.SaveBtn.TabIndex = 19;
-            this.SaveBtn.Text = "Save";
-            this.SaveBtn.UseVisualStyleBackColor = false;
-            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
-            // 
             // genUpDown
             // 
             this.genUpDown.Location = new System.Drawing.Point(714, 420);
@@ -280,11 +269,23 @@
             this.currentLabel.TabIndex = 29;
             this.currentLabel.Text = "label2";
             // 
+            // newButton
+            // 
+            this.newButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.newButton.Location = new System.Drawing.Point(288, 497);
+            this.newButton.Name = "newButton";
+            this.newButton.Size = new System.Drawing.Size(130, 59);
+            this.newButton.TabIndex = 30;
+            this.newButton.Text = "New";
+            this.newButton.UseVisualStyleBackColor = false;
+            this.newButton.Click += new System.EventHandler(this.newButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1178, 648);
+            this.Controls.Add(this.newButton);
             this.Controls.Add(this.currentLabel);
             this.Controls.Add(this.lastButton);
             this.Controls.Add(this.firstButton);
@@ -295,7 +296,6 @@
             this.Controls.Add(this.expTbox);
             this.Controls.Add(this.hpTbox);
             this.Controls.Add(this.genUpDown);
-            this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.legendaryCbox);
             this.Controls.Add(this.shinyCbox);
             this.Controls.Add(this.levelTbox);
@@ -311,6 +311,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Pokedex 2.0";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagePbox)).EndInit();
@@ -335,7 +336,6 @@
         private System.Windows.Forms.TextBox levelTbox;
         private System.Windows.Forms.CheckBox shinyCbox;
         private System.Windows.Forms.CheckBox legendaryCbox;
-        private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.NumericUpDown genUpDown;
         private System.Windows.Forms.TextBox hpTbox;
         private System.Windows.Forms.TextBox expTbox;
@@ -346,6 +346,7 @@
         private System.Windows.Forms.Button firstButton;
         private System.Windows.Forms.Button lastButton;
         private System.Windows.Forms.Label currentLabel;
+        private System.Windows.Forms.Button newButton;
     }
 }
 
