@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.Json;
+using System.Runtime.ConstrainedExecution;
 
 namespace Pokedex
 {
@@ -16,18 +18,7 @@ namespace Pokedex
     {
         Attack, Sp_Attack, Defense, Sp_Defense
     }
-    struct Pokemon
-    {
-        public string Name;
-        public string Type;
-        public int Level;
-        public Attacks attackType;
-        public int HP;
-        public int Exp;
-        public bool Legendary;
-        public bool Shiny;
-        public int Gen;
-    }
+    
     public partial class Form1 : Form
     {
         private int current;
@@ -44,7 +35,6 @@ namespace Pokedex
             
         }
 
-        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -54,16 +44,38 @@ namespace Pokedex
                 while (!inFile.EndOfStream)
                 {
                     string S = inFile.ReadLine();
-                    Pokemon p = ReadPokemon(S);
+                    Pokemon p = JsonSerializer.Deserialize<Pokemon>(S);
                     pokemons[count] = p;
                     count++;
                 }
                 inFile.Close();
                 ShowPokemon(pokemons[0]);
             }
+            else
+            {
+                Pokemon p = new Pokemon(); 
+                p.Name = "Pikachu";
+                p.attackType = Attacks.Attack;
+                p.Level = 18;
+                p.HP = 43;
+                p.Exp = 3003;
+                p.Legendary = true;
+                p.Shiny = false;
+                p.Gen = 1;
+            }
+        }
+        public void Save()
+        {
+            StreamWriter outFile = new System.IO.StreamWriter("Pokemon.txt");
+            for (int i = 0; i < count; i++)
+            {
+                string jsonString = JsonSerializer.Serialize(pokemons[i]);
+                outFile.WriteLine(jsonString);
+            }
+            outFile.Close();
         }
 
-        private Pokemon ReadPokemon(string s)
+        /*private Pokemon ReadPokemon(string s)
         {
             Pokemon p = new Pokemon();
             string[] fields = s.Split('|');
@@ -85,36 +97,7 @@ namespace Pokedex
 
             return p;
         }
-
-        private void Save()
-        {
-            string tmp = "";
-            tmp += nameTbox.Text;
-            tmp += "|";
-            tmp += TypeTbox.Text;
-            tmp += "|";
-            tmp += levelTbox.Text;
-            tmp += "|";
-            tmp += attackComboBox.Text;
-            tmp += "|";
-            tmp += hpTbox.Text;
-            tmp += "|";
-            tmp += expTbox.Text;
-            tmp += "|";
-            tmp += legendaryCbox.Checked;
-            tmp += "|";
-            tmp += shinyCbox.Checked;
-            tmp += "|";
-            tmp += genUpDown.Value;
-            pokemons[current] = ReadPokemon(tmp);
-
-            StreamWriter outFile = new StreamWriter("Pokemon.txt");
-            for (int i = 0; i < count; i++)
-            {
-                outFile.WriteLine(PokemonToString(pokemons[i]));
-            }
-            outFile.Close();
-        }
+        */
 
         private string PokemonToString(Pokemon p)
         {
@@ -220,5 +203,17 @@ namespace Pokedex
         {
             Save();
         }
+    }
+    class Pokemon
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public int Level { get; set; }
+        public Attacks attackType { get; set; }
+        public int HP { get; set; }
+        public int Exp { get; set; }
+        public bool Legendary { get; set; }
+        public bool Shiny { get; set; }
+        public int Gen { get; set; }
     }
 }
