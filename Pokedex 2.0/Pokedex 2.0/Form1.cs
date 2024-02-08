@@ -55,6 +55,7 @@ namespace Pokedex
             {
                 Pokemon p = new Pokemon(); 
                 p.Name = "Pikachu";
+                p.Type = "Electric";
                 p.attackType = Attacks.Attack;
                 p.Level = 18;
                 p.HP = 43;
@@ -62,6 +63,8 @@ namespace Pokedex
                 p.Legendary = true;
                 p.Shiny = false;
                 p.Gen = 1;
+                count = 1;
+                pokemons[0] = p;
             }
         }
         public void Save()
