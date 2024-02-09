@@ -69,6 +69,7 @@ namespace Pokedex
         }
         public void Save()
         {
+            UpdatePokemon();
             StreamWriter outFile = new System.IO.StreamWriter("Pokemon.txt");
             for (int i = 0; i < count; i++)
             {
@@ -78,52 +79,36 @@ namespace Pokedex
             outFile.Close();
         }
 
-        /*private Pokemon ReadPokemon(string s)
+        public void UpdatePokemon()
         {
-            Pokemon p = new Pokemon();
-            string[] fields = s.Split('|');
-            p.Name = fields[0];
-            p.Type = fields[1];
-            p.Level = int.Parse(fields[2]);
-            p.attackType = (Attacks)Enum.Parse(typeof(Attacks), fields[3]);
-            p.HP = int.Parse(fields[4]);
-            p.Exp = int.Parse(fields[5]);
-            if (fields[6] == "True")
-                p.Legendary = true;
-            else
-                p.Legendary = false;
-            if (fields[7] == "True")
-                p.Shiny = true;
-            else
-                p.Shiny = false;
-            p.Gen = int.Parse(fields[8]);
+            Pokemon p = pokemons[current];
+            if (p != null)
+            {
+                p.Name = nameTbox.Text;
+                p.Type = TypeTbox.Text;
+                p.Level = int.Parse(levelTbox.Text);
+                p.attackType = (Attacks)Enum.Parse(typeof(Attacks), attackComboBox.Text);
+                p.HP = int.Parse(hpTbox.Text);
+                p.Exp = int.Parse(expTbox.Text);
+                if (legendaryCbox.Checked)
+                    p.Legendary = true;
+                else
+                    p.Legendary = false;
+                if (shinyCbox.Checked)
+                    p.Shiny = true;
+                else
+                    p.Shiny = false;
+                p.Gen = int.Parse(genUpDown.Value.ToString());
+            }
 
+        }
+
+        private Pokemon ReadPokemon(string s)
+        {
+            Pokemon p = JsonSerializer.Deserialize<Pokemon>(s);
             return p;
         }
-        */
-
-        private string PokemonToString(Pokemon p)
-        {
-            string retVal = "";
-            retVal += p.Name.ToString();
-            retVal += "|";
-            retVal += p.Type.ToString();
-            retVal += "|";
-            retVal += p.Level.ToString();
-            retVal += "|";
-            retVal += p.attackType.ToString();
-            retVal += "|";
-            retVal += p.HP.ToString();
-            retVal += "|";
-            retVal += p.Exp.ToString();
-            retVal += "|";
-            retVal += p.Legendary.ToString();
-            retVal += "|";
-            retVal += p.Shiny.ToString();
-            retVal += "|";
-            retVal += p.Gen.ToString();
-            return retVal;
-        }
+        
         private void SaveBtn_Click(object sender, EventArgs e)
         {
             Save();
@@ -131,15 +116,18 @@ namespace Pokedex
         
         private void ShowPokemon(Pokemon p)
         {
-            nameTbox.Text = p.Name;
-            TypeTbox.Text = p.Type;
-            levelTbox.Text = p.Level.ToString();
-            attackComboBox.Text = p.attackType.ToString();
-            hpTbox.Text = p.HP.ToString();
-            expTbox.Text = p.Exp.ToString();
-            legendaryCbox.Checked = p.Legendary;
-            shinyCbox.Checked = p.Shiny;
-            genUpDown.Value = p.Gen;
+            if (p != null)
+            {
+                nameTbox.Text = p.Name;
+                TypeTbox.Text = p.Type;
+                levelTbox.Text = p.Level.ToString();
+                attackComboBox.Text = p.attackType.ToString();
+                hpTbox.Text = p.HP.ToString();
+                expTbox.Text = p.Exp.ToString();
+                legendaryCbox.Checked = p.Legendary;
+                shinyCbox.Checked = p.Shiny;
+                genUpDown.Value = p.Gen;
+            }
         }
 
         private void firstButton_Click(object sender, EventArgs e)
@@ -198,12 +186,14 @@ namespace Pokedex
         private void newButton_Click(object sender, EventArgs e)
         {
             current = count;
-            count ++;
+            pokemons[current] = new Pokemon();
+            count++;
             Clear();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            UpdatePokemon();
             Save();
         }
     }
