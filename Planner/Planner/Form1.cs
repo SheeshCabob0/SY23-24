@@ -8,9 +8,11 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Planner
 {
@@ -50,7 +52,7 @@ namespace Planner
             else
             {
                 Day d = new Day();
-                d.date = "12/14/24";
+                d.date = "2/14/2024";
                 d.notes = "Current Date";
                 d.priority = 5;
                 d.category = Category.School;
@@ -61,29 +63,36 @@ namespace Planner
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
+            Clear();
             date = monthCalendar1.SelectionRange.Start.ToShortDateString();
             dateTbox.Text = date.ToString();
+            FindCurrent_andDisplay();
         }
 
-        private void DisplayDate(Day d)
+        private void FindCurrent_andDisplay()
         {
-            if (d != null)
+            for (int i = 0; i < count; i++)
             {
-                dateTbox.Text = d.date;
-                noteTbox.Text = d.notes;
-                priorityUpDown.Value = d.priority;
-                categoryCombox.Text = d.category.ToString();
-                doneCheckBox.Checked = d.done;
+                if (dateTbox.Text == days[i].date.ToString())
+                {
+                    current = i;
+                    DisplayDate(days[current]);
+                }
             }
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            Save();
+        }
+
+        private void Save()
+        {
             //i < 1, instead of i < count
             count++;
             UpdatePlans();
             StreamWriter outFile = new System.IO.StreamWriter("Planner.txt");
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < count + 1; i++)
             {
                 string jsonString = JsonSerializer.Serialize(days[i]);
                 outFile.WriteLine(jsonString);
@@ -93,12 +102,13 @@ namespace Planner
 
         private void UpdatePlans()
         {
-            //WARNING NOT SET TO CURRENT, NEED A WAY TO MAKE CURRENT!!
-            //Currently sets current to debugtextbox, which can be set while running the program
-            //current = int.Parse(debugTbox.Text.ToString());
-            days[1] = new Day();
-            Day d = days[1];
+            //Creates a new day every time you save,
+            //but I need to find a way to allow editing dates
 
+            //set to count - 1, because the array is zero based but count is not
+            days[count - 1] = new Day();
+            Day d = days[count - 1];
+            //Sets d to the information the user inputs
             if (d != null)
             {
                 d.date = dateTbox.Text.ToString();
@@ -113,6 +123,27 @@ namespace Planner
 
             }
         }
+
+        private void DisplayDate(Day d)
+        {
+            if (d != null)
+            {
+                dateTbox.Text = d.date;
+                noteTbox.Text = d.notes;
+                priorityUpDown.Value = d.priority;
+                categoryCombox.Text = d.category.ToString();
+                doneCheckBox.Checked = d.done;
+            }
+        }
+        private void Clear()
+        {
+            dateTbox.Text = "";
+            noteTbox.Text = "";
+            priorityUpDown.Value = 0;
+            categoryCombox.Text = "";
+            doneCheckBox.Checked = false;
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
